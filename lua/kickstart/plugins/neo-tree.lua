@@ -11,6 +11,7 @@ return {
   },
   cmd = 'Neotree',
   keys = {
+    -- CMD B mapped with Alacritty
     { '', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
   },
   init = function()
@@ -37,6 +38,7 @@ return {
       window = {
         position = 'right',
         mappings = {
+          -- CMD B mapped with Alacritty
           [''] = 'close_window',
         },
       },

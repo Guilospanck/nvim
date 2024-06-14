@@ -10,6 +10,7 @@
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  checker = { enabled = true, notify = true },
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -31,7 +32,7 @@ require('lazy').setup({
   require 'kickstart/plugins/gitsigns',
 
   -- Don't want to use this at the moment. It is conflicting with ` key
-  -- require 'kickstart/plugins/which-key',
+  require 'kickstart/plugins/which-key',
 
   require 'kickstart/plugins/telescope',
 
