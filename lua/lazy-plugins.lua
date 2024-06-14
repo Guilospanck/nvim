@@ -24,7 +24,18 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- Plugin to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    opts = {},
+    config = function()
+      -- Using CMD ; mapped on Alacritty
+      -- Set keymap for normal mode
+      vim.keymap.set('n', '', '<Plug>(comment_toggle_linewise_current)', {})
+
+      -- Set keymap for visual mode
+      vim.keymap.set('x', '', '<Plug>(comment_toggle_linewise_visual)', {})
+    end,
+  },
 
   -- modular approach: using `require 'path/name'` will
   -- include a plugin definition from file lua/path/name.lua
