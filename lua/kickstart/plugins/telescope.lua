@@ -83,10 +83,6 @@ return {
           opts['cwd'] = root
         end
 
-        for k, v in pairs(opts) do
-          print(k, v)
-        end
-
         fn(opts)
       end
 
