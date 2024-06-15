@@ -4,17 +4,27 @@
 -- Map CMD B (in Alacritty) to open explore
 vim.keymap.set('n', '', vim.cmd.Ex)
 
--- This enables us to move the current line to above or below
--- vim.keymap.set({ 'n', 'v' }, '<F13>', ":m '>+1<CR>gv=gv")
--- vim.keymap.set({ 'n', 'v' }, '', ":m '<-2<CR>gv=gv")
+-- -- This enables us to move the current line to above or below
+vim.keymap.set('v', '', ":m '<-2<CR>gv=gv")
+vim.keymap.set('v', '<F13>', ":m '>+1<CR>gv=gv")
 
 -- This allow us to substitute ALL occurrences of current word under cursor
 -- It uses CMD R (mapped in Alacritty)
--- Visual mode from: https://stackoverflow.com/a/77622213/9782182
+-- Visual mode from: adapted from https://stackoverflow.com/a/77622213/9782182
 table.unpack = table.unpack or unpack
 local function get_visual()
   local _, ls, cs = table.unpack(vim.fn.getpos 'v')
   local _, le, ce = table.unpack(vim.fn.getpos '.')
+  if cs > ce then
+    local temp = cs
+    cs = ce
+    ce = temp
+  end
+  if ls > le then
+    local temp = ls
+    ls = le
+    le = temp
+  end
   return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
 end
 vim.keymap.set('n', '', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
