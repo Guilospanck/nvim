@@ -2,7 +2,7 @@
 --  See `:help vim.keymap.set()`
 
 -- Map CMD B (in Alacritty) to open explore
-vim.keymap.set('n', '', vim.cmd.Ex)
+vim.keymap.set('n', '', vim.cmd.Lex)
 
 -- -- This enables us to move the current line to above or below
 vim.keymap.set('v', '', ":m '<-2<CR>gv=gv")

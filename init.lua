@@ -18,9 +18,7 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
--- -- Do not open netrw. Neotree plugin is hijacking it
--- vim.g.loaded_netrwPlugin = 1
--- vim.g.loaded_netrw = 1
+vim.g.netrw_winsize = 25
 
 -- [[ Setting options ]]
 require 'options'
