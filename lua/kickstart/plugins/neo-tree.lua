@@ -34,6 +34,11 @@ return {
     { '', ':Neotree reveal_force_cwd toggle<CR>', { desc = 'NeoTree reveal' } },
   },
   opts = {
+    window = {
+      mappings = {
+        [''] = 'close_window',
+      },
+    },
     buffers = { follow_current_file = { enable = true } },
     filesystem = {
       follow_current_file = {
@@ -42,10 +47,6 @@ return {
       },
       window = {
         position = 'right',
-        -- mappings = {
-        --   -- CMD B mapped with Alacritty
-        --   [''] = 'close_window',
-        -- },
       },
       hijack_netrw_behavior = 'open_current',
     },
