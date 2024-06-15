@@ -1,6 +1,31 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- Map CMD B (in Alacritty) to open explore
+vim.keymap.set('n', '', vim.cmd.Ex)
+
+-- This enables us to move the current line to above or below
+-- vim.keymap.set({ 'n', 'v' }, '<F13>', ":m '>+1<CR>gv=gv")
+-- vim.keymap.set({ 'n', 'v' }, '', ":m '<-2<CR>gv=gv")
+
+-- This allow us to substitute ALL occurrences of current word under cursor
+-- It uses CMD R (mapped in Alacritty)
+-- Visual mode from: https://stackoverflow.com/a/77622213/9782182
+table.unpack = table.unpack or unpack
+local function get_visual()
+  local _, ls, cs = table.unpack(vim.fn.getpos 'v')
+  local _, le, ce = table.unpack(vim.fn.getpos '.')
+  return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+end
+vim.keymap.set('n', '', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set('v', '', function()
+  local pattern = table.concat(get_visual())
+  -- escape regex and line endings
+  pattern = vim.fn.substitute(vim.fn.escape(pattern, '^$.*\\/~[]'), '\n', '\\n', 'g')
+  -- send parsed substitution command to command line
+  vim.api.nvim_input('<Esc>:%s/' .. pattern .. '//<Left>')
+end)
+
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
