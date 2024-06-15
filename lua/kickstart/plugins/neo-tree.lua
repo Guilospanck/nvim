@@ -3,44 +3,49 @@
 
 return {
   'nvim-neo-tree/neo-tree.nvim',
-  version = '*',
+  version = 'v3.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
     'MunifTanjim/nui.nvim',
   },
   cmd = 'Neotree',
-  keys = {
-    -- CMD B mapped with Alacritty
-    { '', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
-  },
   init = function()
+    -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
+    -- because `cwd` is not set up properly.
     vim.api.nvim_create_autocmd('BufEnter', {
-      -- make a group to be able to delete it later
-      group = vim.api.nvim_create_augroup('NeoTreeInit', { clear = true }),
+      group = vim.api.nvim_create_augroup('Neotree_start_directory', { clear = true }),
+      desc = 'Start Neo-tree with directory',
+      once = true,
       callback = function()
-        local f = vim.fn.expand '%:p'
-        if vim.fn.isdirectory(f) ~= 0 then
-          vim.cmd('Neotree current dir=' .. f)
-          -- neo-tree is loaded now, delete the init autocmd
-          vim.api.nvim_clear_autocmds { group = 'NeoTreeInit' }
+        if package.loaded['neo-tree'] then
+          return
+        end
+
+        local stats = vim.uv.fs_stat(vim.fn.argv(0))
+        if stats and stats.type == 'directory' then
+          require 'neo-tree'
         end
       end,
     })
   end,
+  keys = {
+    -- CMD B mapped with Alacritty
+    { '', ':Neotree reveal_force_cwd toggle<CR>', { desc = 'NeoTree reveal' } },
+  },
   opts = {
+    buffers = { follow_current_file = { enable = true } },
     filesystem = {
       follow_current_file = {
         enabled = true,
         leave_dirs_open = false,
       },
-      buffers = { follow_current_file = { enable = true } },
       window = {
         position = 'right',
-        mappings = {
-          -- CMD B mapped with Alacritty
-          [''] = 'close_window',
-        },
+        -- mappings = {
+        --   -- CMD B mapped with Alacritty
+        --   [''] = 'close_window',
+        -- },
       },
       hijack_netrw_behavior = 'open_current',
     },
