@@ -77,8 +77,23 @@ return {
       -- See `:help telescope.builtin.live_grep()` for information about particular keys
       local builtin = require 'telescope.builtin'
 
+      local function find_checking_git(fn, opts)
+        local root = string.gsub(vim.fn.system 'git rev-parse --show-toplevel', '\n', '')
+        if vim.v.shell_error == 0 then
+          opts['cwd'] = root
+        end
+
+        for k, v in pairs(opts) do
+          print(k, v)
+        end
+
+        fn(opts)
+      end
+
       -- Mapped with CMD P via Alacritty
-      vim.keymap.set('n', '', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '', function()
+        find_checking_git(builtin.find_files, {})
+      end, { desc = 'Search Files [CMD P]' })
 
       --  Mapped with CMD F via Alacritty
       vim.keymap.set('n', '', function()
@@ -87,15 +102,15 @@ return {
           winblend = 10,
           previewer = true,
         })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      end, { desc = 'Fuzzily search in current buffer [CMD F]' })
 
       --  Mapped with CMD Shift F via Alacritty
       vim.keymap.set('n', '', function()
-        builtin.live_grep {
+        find_checking_git(builtin.live_grep, {
           grep_open_files = false,
           prompt_title = 'Live Grep in Files',
-        }
-      end, { desc = '[S]earch [/] in Files' })
+        })
+      end, { desc = 'Search in Files [CMD Shift F]' })
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
