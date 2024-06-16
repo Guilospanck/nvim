@@ -70,7 +70,6 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 function ToggleMaximizeWindow()
   local win_id = vim.api.nvim_get_current_win()
   local current_height = vim.api.nvim_win_get_height(win_id)
-  print(current_height)
   local max_height = vim.o.lines - vim.o.cmdheight - 2
   local normal_height = 20
 
