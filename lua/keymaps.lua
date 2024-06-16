@@ -9,7 +9,7 @@ vim.keymap.set('v', '', ":m '<-2<CR>gv=gv")
 vim.keymap.set('v', '', ":m '>+1<CR>gv=gv")
 
 -- This allow us to substitute ALL occurrences of current word under cursor
--- It uses CMD R (mapped in Alacritty)
+-- It uses CMD Shift L (mapped in Alacritty)
 -- Visual mode from: adapted from https://stackoverflow.com/a/77622213/9782182
 table.unpack = table.unpack or unpack
 local function get_visual()
