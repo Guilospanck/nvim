@@ -42,7 +42,6 @@ require('lazy').setup({
 
   require 'kickstart/plugins/gitsigns',
 
-  -- Don't want to use this at the moment. It is conflicting with ` key
   require 'kickstart/plugins/which-key',
 
   require 'kickstart/plugins/telescope',
@@ -73,7 +72,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   --
   -- INFO: netrw is enough
   -- require 'kickstart.plugins.neo-tree',
