@@ -87,9 +87,17 @@ return {
           --  Most Language Servers support renaming across files, etc.
           map('<F2>', vim.lsp.buf.rename, '[R]e[n]ame')
 
-          -- Execute a code action, usually your cursor needs to be on top of an error
+          local function code_action_or_lenses()
+            local current_code_lenses = vim.lsp.codelens.get(0)
+            if #current_code_lenses == 0 then
+              vim.lsp.buf.code_action {}
+            else
+              vim.lsp.codelens.run()
+            end
+          end
+          -- Execute a code action or codelenses (run/debug), usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<C-Space>', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          map('<C-Space>', code_action_or_lenses, '[C]ode [A]ction')
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
@@ -139,7 +147,7 @@ return {
           end
 
           -- Lenses
-          if client and client.supports_method(lsp.protocol.Methods.textDocument_codeLens) then
+          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
             local lenses_augroup = vim.api.nvim_create_augroup('lenses', { clear = false })
 
             vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {

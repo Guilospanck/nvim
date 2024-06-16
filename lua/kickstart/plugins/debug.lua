@@ -83,7 +83,7 @@ return {
     ---------------------------------------------------------------------------
     dap.adapters.lldb = {
       type = 'executable',
-      command = '$(brew --prefix llvm)/bin/lldb-dap',
+      command = '/opt/homebrew/opt/llvm/bin/lldb-dap',
       name = 'lldb',
     }
     local common_launch_configs = {
