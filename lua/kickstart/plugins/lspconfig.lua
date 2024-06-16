@@ -137,6 +137,19 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
             end, '[T]oggle Inlay [H]ints')
           end
+
+          -- Lenses
+          if client and client.supports_method(lsp.protocol.Methods.textDocument_codeLens) then
+            local lenses_augroup = vim.api.nvim_create_augroup('lenses', { clear = false })
+
+            vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+              buffer = event.buf,
+              group = lenses_augroup,
+              callback = function()
+                vim.lsp.codelens.refresh()
+              end,
+            })
+          end
         end,
       })
 
