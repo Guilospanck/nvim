@@ -40,10 +40,16 @@ return {
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!
+    vim.keymap.set('n', '<F3>', dap.step_over, { desc = 'Debug: Step Over' })
+    vim.keymap.set('n', '<F4>', dap.terminate, { desc = 'Debug: Stop' })
     vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
-    vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
-    vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
-    vim.keymap.set('n', '<F3>', dap.step_out, { desc = 'Debug: Step Out' })
+    vim.keymap.set('n', '<F6>', dap.step_into, { desc = 'Debug: Step Into' })
+    vim.keymap.set('n', '<F7>', dap.step_out, { desc = 'Debug: Step Out' })
+
+    -- Breakpoints
+    vim.fn.sign_define('DapBreakpoint', { text = '🟥', texthl = '', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointRejected', { text = '🟦', texthl = '', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapStopped', { text = '⭐️', texthl = '', linehl = '', numhl = '' })
     vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
     vim.keymap.set('n', '<leader>B', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
@@ -81,78 +87,134 @@ return {
     ---------------------------------------------------------------------------
     -- Config rust debugger
     ---------------------------------------------------------------------------
-    dap.adapters.lldb = {
-      type = 'executable',
-      command = '/opt/homebrew/opt/llvm/bin/lldb-dap',
-      name = 'lldb',
+    -- dap.adapters.lldb = {
+    --   type = 'executable',
+    --   command = '/opt/homebrew/opt/llvm/bin/lldb-dap',
+    --   name = 'lldb',
+    -- }
+    -- local common_launch_configs = {
+    --   name = 'Launch',
+    --   type = 'lldb',
+    --   request = 'launch',
+    --   program = function()
+    --     return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    --   end,
+    --   cwd = '${workspaceFolder}',
+    --   stopOnEntry = false,
+    --   args = {},
+    --   env = function()
+    --     local variables = {}
+    --     for k, v in pairs(vim.fn.environ()) do
+    --       table.insert(variables, string.format('%s=%s', k, v))
+    --     end
+    --     return variables
+    --   end,
+    -- }
+    -- local common_attach_configs = {
+    --   -- If you get an "Operation not permitted" error using this, try disabling YAMA:
+    --   --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+    --   name = 'Attach to process',
+    --   type = 'cpp', -- Adjust this to match your adapter name (`dap.adapters.<name>`)
+    --   request = 'attach',
+    --   pid = require('dap.utils').pick_process,
+    --   args = {},
+    --   env = function()
+    --     local variables = {}
+    --     for k, v in pairs(vim.fn.environ()) do
+    --       table.insert(variables, string.format('%s=%s', k, v))
+    --     end
+    --     return variables
+    --   end,
+    -- }
+    -- dap.configurations.cpp = {
+    --   common_launch_configs,
+    --   common_attach_configs,
+    -- }
+    -- dap.configurations.c = dap.configurations.cpp
+    --
+    -- local rust_launch_configs = common_launch_configs
+    -- local rust_attach_configs = common_attach_configs
+    -- local initCommands = function()
+    --   -- Find out where to look for the pretty printer Python module
+    --   local rustc_sysroot = vim.fn.trim(vim.fn.system 'rustc --print sysroot')
+    --
+    --   local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
+    --   local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
+    --
+    --   local commands = {}
+    --   local file = io.open(commands_file, 'r')
+    --   if file then
+    --     for line in file:lines() do
+    --       table.insert(commands, line)
+    --     end
+    --     file:close()
+    --   end
+    --   table.insert(commands, 1, script_import)
+    --
+    --   return commands
+    -- end
+    -- rust_launch_configs['initCommands'] = initCommands
+    -- rust_attach_configs['initCommands'] = initCommands
+    --
+    -- dap.configurations.rust = {
+    --   rust_launch_configs,
+    --   rust_attach_configs,
+    -- }
+    local ExecTypes = {
+      TEST = 'cargo build --tests -q --message-format=json',
+      BIN = 'cargo build -q --message-format=json',
     }
-    local common_launch_configs = {
-      name = 'Launch',
-      type = 'lldb',
-      request = 'launch',
-      program = function()
-        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-      end,
-      cwd = '${workspaceFolder}',
-      stopOnEntry = false,
-      args = {},
-      env = function()
-        local variables = {}
-        for k, v in pairs(vim.fn.environ()) do
-          table.insert(variables, string.format('%s=%s', k, v))
-        end
-        return variables
-      end,
-    }
-    local common_attach_configs = {
-      -- If you get an "Operation not permitted" error using this, try disabling YAMA:
-      --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-      name = 'Attach to process',
-      type = 'cpp', -- Adjust this to match your adapter name (`dap.adapters.<name>`)
-      request = 'attach',
-      pid = require('dap.utils').pick_process,
-      args = {},
-      env = function()
-        local variables = {}
-        for k, v in pairs(vim.fn.environ()) do
-          table.insert(variables, string.format('%s=%s', k, v))
-        end
-        return variables
-      end,
-    }
-    dap.configurations.cpp = {
-      common_launch_configs,
-      common_attach_configs,
-    }
-    dap.configurations.c = dap.configurations.cpp
 
-    local rust_launch_configs = common_launch_configs
-    local rust_attach_configs = common_attach_configs
-    local initCommands = function()
-      -- Find out where to look for the pretty printer Python module
-      local rustc_sysroot = vim.fn.trim(vim.fn.system 'rustc --print sysroot')
+    local function runBuild(type)
+      local lines = vim.fn.systemlist(type)
+      local output = table.concat(lines, '\n')
+      local filename = output:match '^.*"executable":"(.*)",.*\n.*,"success":true}$'
 
-      local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
-      local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
-
-      local commands = {}
-      local file = io.open(commands_file, 'r')
-      if file then
-        for line in file:lines() do
-          table.insert(commands, line)
-        end
-        file:close()
+      if filename == nil then
+        return error 'failed to build cargo project'
       end
-      table.insert(commands, 1, script_import)
 
-      return commands
+      return filename
     end
-    rust_launch_configs['initCommands'] = initCommands
-    rust_attach_configs['initCommands'] = initCommands
+
+    dap.adapters.codelldb = {
+      type = 'server',
+      port = '${port}',
+      executable = {
+        command = vim.fn.exepath 'codelldb', -- install `lldb` && use :Mason to install codelldb & cpptools
+        args = { '--port', '${port}' },
+        detached = true,
+      },
+      name = 'codelldb',
+    }
+
+    if vim.fn.has 'win32' == 1 then
+      dap.adapters.codelldb.executable.detached = false
+    end
 
     dap.configurations.rust = {
-      rust_launch_configs,
-      rust_attach_configs,
+      {
+        name = 'Debug Test',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return runBuild(ExecTypes.TEST)
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        showDisassembly = 'never',
+      },
+      {
+        name = 'Debug Bin',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return runBuild(ExecTypes.BIN)
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        showDisassembly = 'never',
+      },
     }
 
     -- Install golang specific config
