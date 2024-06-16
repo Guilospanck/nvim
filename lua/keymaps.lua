@@ -6,7 +6,7 @@ vim.keymap.set('n', '', vim.cmd.Lex)
 
 -- -- This enables us to move the current line to above or below
 vim.keymap.set('v', '', ":m '<-2<CR>gv=gv")
-vim.keymap.set('v', '<F13>', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', '', ":m '>+1<CR>gv=gv")
 
 -- This allow us to substitute ALL occurrences of current word under cursor
 -- It uses CMD R (mapped in Alacritty)
