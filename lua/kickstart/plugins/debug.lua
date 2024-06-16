@@ -23,20 +23,6 @@ return {
       'mrcjkb/rustaceanvim',
       version = '^4',
       lazy = false,
-      config = function()
-        vim.g.rustaceanvim = {
-          server = {
-            cmd = function()
-              local mason_registry = require 'mason-registry'
-              local ra_binary = mason_registry.is_installed 'rust-analyzer'
-                  -- This may need to be tweaked, depending on the operating system.
-                  and mason_registry.get_package('rust-analyzer'):get_install_path() .. '/rust-analyzer'
-                or 'rust-analyzer'
-              return { ra_binary } -- You can add args to the list, such as '--log-file'
-            end,
-          },
-        }
-      end,
     },
   },
   config = function()
@@ -55,7 +41,6 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
-        'rust=analyzer',
       },
     }
 
@@ -74,6 +59,10 @@ return {
     vim.keymap.set('n', '<leader>B', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
+
+    vim.keymap.set('n', '<F9>', dap.run_to_cursor, { desc = 'Debug: See last session result.' })
+    -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
+    vim.keymap.set('n', '<F8>', dapui.toggle, { desc = 'Debug: See last session result.' })
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
@@ -96,9 +85,6 @@ return {
         },
       },
     }
-
-    -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-    vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
