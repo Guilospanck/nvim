@@ -88,7 +88,7 @@ return {
 
       -- Mapped with CMD P via Alacritty
       vim.keymap.set('n', '', function()
-        find_checking_git(builtin.find_files, {})
+        find_checking_git(builtin.find_files, { hidden = true })
       end, { desc = 'Search Files [CMD P]' })
 
       --  Mapped with CMD F via Alacritty
@@ -105,6 +105,7 @@ return {
         find_checking_git(builtin.live_grep, {
           grep_open_files = false,
           prompt_title = 'Live Grep in Files',
+          hidden = true,
         })
       end, { desc = 'Search in Files [CMD Shift F]' })
 
