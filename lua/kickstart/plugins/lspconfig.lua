@@ -154,7 +154,9 @@ return {
               buffer = event.buf,
               group = lenses_augroup,
               callback = function()
-                vim.lsp.codelens.refresh()
+                if vim.g.codelens_enabled then
+                  vim.lsp.codelens.refresh()
+                end
               end,
             })
           end
