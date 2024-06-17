@@ -56,12 +56,26 @@ return {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        pickers = {
+          live_grep = {
+            additional_args = function()
+              return {
+                '--hidden',
+                '--no-ignore',
+                '-g',
+                '!.git',
+                '-g',
+                '!node_modules',
+                '-g',
+                '!target',
+                '-g',
+                '!*.lock',
+                '-g',
+                '!coverage',
+              }
+            end,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -88,7 +102,23 @@ return {
 
       -- Mapped with CMD P via Alacritty
       vim.keymap.set('n', '', function()
-        find_checking_git(builtin.find_files, { hidden = true })
+        find_checking_git(builtin.find_files, {
+          find_command = {
+            'fd',
+            '--hidden',
+            '--no-ignore',
+            '--exclude',
+            '.git',
+            '--exclude',
+            'node_modules',
+            '--exclude',
+            'target',
+            '--exclude',
+            '*.lock',
+            '--exclude',
+            'coverage',
+          },
+        })
       end, { desc = 'Search Files [CMD P]' })
 
       --  Mapped with CMD F via Alacritty
@@ -105,7 +135,6 @@ return {
         find_checking_git(builtin.live_grep, {
           grep_open_files = false,
           prompt_title = 'Live Grep in Files',
-          hidden = true,
         })
       end, { desc = 'Search in Files [CMD Shift F]' })
 
