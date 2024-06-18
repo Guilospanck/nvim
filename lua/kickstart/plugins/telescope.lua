@@ -105,6 +105,8 @@ return {
         find_checking_git(builtin.find_files, {
           find_command = {
             'fd',
+            '--type',
+            'file',
             '--hidden',
             '--no-ignore',
             '--exclude',
