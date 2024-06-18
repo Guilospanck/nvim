@@ -3,16 +3,8 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  -- Used to toggle a terminal so its easier to run applications in the background:
-  -- https://github.com/akinsho/toggleterm.nvim
-  {
-    'akinsho/toggleterm.nvim',
-    version = '*',
-    opts = {
-      direction = 'horizontal',
-      open_mapping = [[<c-\>]],
-    },
-  },
+  -- Harpoon lets you fly through previous marked items.
+  -- From https://github.com/ThePrimeagen/harpoon/tree/harpoon2
   {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
