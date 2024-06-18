@@ -36,6 +36,10 @@ vim.keymap.set('v', '', function()
   vim.api.nvim_input('<Esc>:%s/' .. pattern .. '//<Left>')
 end)
 
+-- Copy full absolute path of current file
+-- CTRL SHIFT a
+vim.keymap.set({ 'n', 'v' }, '', ':let @+ = expand("%:p")<CR>')
+
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
