@@ -2,11 +2,14 @@ return {
   { -- Autoformat
     'stevearc/conform.nvim',
     lazy = false,
+    dependencies = { 'mfussenegger/nvim-lint' },
     keys = {
       {
         '', -- alt shift f, defined on the alacritty key bindings
         function()
           require('conform').format { async = true, lsp_fallback = true }
+          -- lints the code as well
+          require('lint').try_lint()
         end,
         mode = '',
         desc = '[F]ormat buffer',
