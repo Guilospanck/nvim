@@ -183,7 +183,7 @@ return {
         -- clangd = {},
         gopls = {},
         basedpyright = {
-          settings = { basedpyright = { reportMissingSuperCall = false } },
+          settings = { basedpyright = { reportMissingSuperCall = false, typeCheckingMode = 'basic' } },
         },
         -- rust_analyzer = {}, -- INFO: should not add this otherwise will conflict with rustaceanvim
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
