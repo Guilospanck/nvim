@@ -24,6 +24,8 @@ return {
       version = '^4',
       lazy = false,
     },
+    -- python
+    'mfussenegger/nvim-dap-python',
   },
   config = function()
     local dap = require 'dap'
@@ -60,9 +62,9 @@ return {
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
 
-    vim.keymap.set('n', '<F9>', dap.run_to_cursor, { desc = 'Debug: See last session result.' })
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     vim.keymap.set('n', '<F8>', dapui.toggle, { desc = 'Debug: See last session result.' })
+    vim.keymap.set('n', '<F9>', dap.run_to_cursor, { desc = 'Debug: See last session result.' })
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
@@ -101,5 +103,14 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    ---------------------------------------------------------------------------
+    -- Config python
+    ---------------------------------------------------------------------------
+    --
+    -- Gets the right python from Poetry env (may have to change based on the project)
+    local python_poetry_path = vim.system({ 'poetry', 'env', 'info', '--executable' }, { text = true }):wait()
+    require('dap-python').setup(python_poetry_path.stdout)
+    require('dap-python').test_runner = 'pytest'
   end,
 }
