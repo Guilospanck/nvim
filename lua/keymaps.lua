@@ -54,8 +54,12 @@ vim.keymap.set('v', '', function()
 end)
 
 -- Copy full absolute path of current file
--- CTRL SHIFT a
-vim.keymap.set({ 'n', 'v' }, '', ':let @+ = expand("%:p")<CR>')
+-- CMD SHIFT a
+vim.keymap.set({ 'n', 'v' }, '', ':let @+ = expand("%:p")<CR>', { silent = true })
+
+-- Makes current file executable (chmod +x)
+-- CMD SHIFT x
+vim.keymap.set({ 'n', 'v' }, '', '<cmd>!chmod +x %<CR>', { silent = true })
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
