@@ -2,6 +2,13 @@
 --  See `:help vim.keymap.set()`
 --
 
+-- Remaps to keep cursor centralised on the screen when jumping
+vim.keymap.set('n', 'J', 'mzJ`z')
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
 -- Map CMD B (in Alacritty) to open explore
 vim.keymap.set('n', '', vim.cmd.Lex)
 
@@ -42,7 +49,6 @@ end)
 vim.keymap.set({ 'n', 'v' }, '', ':let @+ = expand("%:p")<CR>')
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
-vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
@@ -83,7 +89,8 @@ local function toggleMaximizeWindow()
   else
     vim.api.nvim_win_set_height(win_id, max_height)
   end
-end -- vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+end
+-- vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 -- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 -- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })

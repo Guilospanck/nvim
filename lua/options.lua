@@ -24,7 +24,17 @@ vim.opt.clipboard = 'unnamedplus'
 vim.opt.breakindent = true
 
 -- Save undo history
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
 vim.opt.undofile = true
+
+-- Enables highlighting when searching
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+
+-- Use terminal colors
+vim.opt.termguicolors = true
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
@@ -33,8 +43,14 @@ vim.opt.smartcase = true
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
+-- Ensures vim understands files that have @ or -
+vim.opt.isfname:append '@-@'
+
 -- Decrease update time
-vim.opt.updatetime = 250
+vim.opt.updatetime = 50
+
+-- Creates a column colored bar (useful to limit how much code in one line you are writing)
+vim.opt.colorcolumn = '80'
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
