@@ -36,4 +36,11 @@ return {
       end, { desc = 'Next harpoon item' })
     end,
   },
+  {
+    'rose-pine/neovim',
+    as = 'rose-pine',
+    config = function()
+      vim.cmd 'colorscheme rose-pine'
+    end,
+  },
 }

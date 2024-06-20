@@ -1,5 +1,6 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
+--
 
 -- Map CMD B (in Alacritty) to open explore
 vim.keymap.set('n', '', vim.cmd.Lex)
