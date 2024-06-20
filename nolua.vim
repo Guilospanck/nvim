@@ -9,3 +9,4 @@
 :command! SEX Sex
 :command! SeX Sex
 :command! SeX Sex
+set foldmethod=indent
