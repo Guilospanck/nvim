@@ -72,7 +72,7 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 --
 --  See `:help wincmd` for a list of all window commands
 
-function ToggleMaximizeWindow()
+local function toggleMaximizeWindow()
   local win_id = vim.api.nvim_get_current_win()
   local current_height = vim.api.nvim_win_get_height(win_id)
   local max_height = vim.o.lines - vim.o.cmdheight - 2
@@ -87,7 +87,7 @@ end -- vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the le
 -- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 -- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-vim.keymap.set('n', '<C-^>', ':lua ToggleMaximizeWindow()<CR>,', { desc = 'Expand window vertically' })
+vim.keymap.set('n', '<C-^>', toggleMaximizeWindow, { desc = 'Expand window vertically' })
 --
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
