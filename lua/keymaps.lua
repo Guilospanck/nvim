@@ -9,6 +9,15 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 
+-- Allows you the paste onto a highlighted word
+-- without losing the pasting text (i.e. the hightlight
+-- word will not be on the register for next paste)
+vim.keymap.set('x', '<leader>p', [["_dP]])
+
+-- Separates between the clipboard register and vim register's
+vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
+vim.keymap.set('n', '<leader>Y', [["+Y]])
+
 -- Map CMD B (in Alacritty) to open explore
 vim.keymap.set('n', '', vim.cmd.Lex)
 
