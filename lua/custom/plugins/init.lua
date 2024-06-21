@@ -44,6 +44,7 @@ return {
       vim.cmd 'colorscheme rose-pine'
     end,
   },
+  -- To come back to a previous change in an easier way
   {
     'mbbill/undotree',
     config = function()
