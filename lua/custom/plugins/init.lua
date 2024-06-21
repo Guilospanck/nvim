@@ -36,11 +36,18 @@ return {
       end, { desc = 'Next harpoon item' })
     end,
   },
+  -- Theme for neovim
   {
     'rose-pine/neovim',
     as = 'rose-pine',
     config = function()
       vim.cmd 'colorscheme rose-pine'
+    end,
+  },
+  {
+    'mbbill/undotree',
+    config = function()
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
     end,
   },
 }
