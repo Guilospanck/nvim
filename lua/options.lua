@@ -78,4 +78,8 @@ vim.opt.scrolloff = 10
 -- this makes neotree open always within the current directory
 vim.opt.autochdir = true
 
+-- Related to tab size
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+
 -- vim: ts=2 sts=2 sw=2 et
