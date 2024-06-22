@@ -41,6 +41,18 @@ return {
     'rose-pine/neovim',
     as = 'rose-pine',
     config = function()
+      -- Check https://github.com/rose-pine/neovim/blob/main/lua/rose-pine.lua for more info
+      -- and https://rosepinetheme.com/palette/ingredients/
+      require('rose-pine').setup {
+        highlight_groups = {
+          MiniStatuslineDevinfo = { fg = 'iris', bg = 'overlay' },
+          MiniStatuslineFilename = { fg = 'gold', bg = 'surface' },
+          LspReferenceRead = { bg = 'highlight_high' },
+          LspReferenceText = { bg = 'highlight_high' },
+          LspReferenceWrite = { bg = 'highlight_high' },
+          CursorLine = { bg = '#100E1B' },
+        },
+      }
       vim.cmd 'colorscheme rose-pine'
     end,
   },
