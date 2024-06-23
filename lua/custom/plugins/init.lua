@@ -41,9 +41,17 @@ return {
     'rose-pine/neovim',
     as = 'rose-pine',
     config = function()
+      local function colorMyPencils(color)
+        color = color or 'rose-pine-moon'
+        vim.cmd.colorscheme(color)
+        vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+        vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      end
+
       -- Check https://github.com/rose-pine/neovim/blob/main/lua/rose-pine.lua for more info
       -- and https://rosepinetheme.com/palette/ingredients/
       require('rose-pine').setup {
+        disable_background = true,
         highlight_groups = {
           MiniStatuslineDevinfo = { fg = 'iris', bg = 'overlay' },
           MiniStatuslineFilename = { fg = 'gold', bg = 'surface' },
@@ -53,7 +61,8 @@ return {
           CursorLine = { bg = '#100E1B' },
         },
       }
-      vim.cmd 'colorscheme rose-pine'
+
+      colorMyPencils()
     end,
   },
   -- To come back to a previous change in an easier way
