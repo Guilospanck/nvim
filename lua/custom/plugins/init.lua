@@ -76,4 +76,14 @@ return {
       vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
     end,
   },
+  -- Allows, amongst other things, change from cases:
+  -- crs: coerce to snake case
+  -- crm coerce to mixed case
+  -- crc coerce to camel case
+  -- cru coerce to uppercase
+  -- cr- coerce to dash-case
+  -- cr. coerce to dot.case
+  {
+    'tpope/vim-abolish',
+  },
 }
