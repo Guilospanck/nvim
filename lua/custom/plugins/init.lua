@@ -55,9 +55,9 @@ return {
         highlight_groups = {
           MiniStatuslineDevinfo = { fg = 'iris', bg = 'overlay' },
           MiniStatuslineFilename = { fg = 'gold', bg = 'surface' },
-          LspReferenceRead = { bg = 'highlight_high' },
-          LspReferenceText = { bg = 'highlight_high' },
-          LspReferenceWrite = { bg = 'highlight_high' },
+          LspReferenceRead = { bg = '#000000' },
+          LspReferenceText = { bg = '#000000' },
+          LspReferenceWrite = { bg = '#000000' },
           CursorLine = { bg = '#100E1B' },
         },
       }
