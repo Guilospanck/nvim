@@ -72,6 +72,8 @@ return {
                 '!*.lock',
                 '-g',
                 '!coverage',
+                '-g',
+                '!.cargo',
               }
             end,
           },
@@ -80,6 +82,9 @@ return {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+        },
+        defaults = {
+          file_ignore_patterns = { '.cargo' },
         },
       }
 
@@ -119,6 +124,8 @@ return {
             '*.lock',
             '--exclude',
             'coverage',
+            '--exclude',
+            '.cargo',
           },
         })
       end, { desc = 'Search Files [CMD P]' })
