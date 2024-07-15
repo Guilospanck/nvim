@@ -85,7 +85,7 @@ return {
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<F2>', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('\\', vim.lsp.buf.rename, '[R]e[n]ame')
 
           local function code_action_or_lenses()
             local current_code_lenses = vim.lsp.codelens.get(0)
