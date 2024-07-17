@@ -74,6 +74,8 @@ return {
                 '!coverage',
                 '-g',
                 '!.cargo',
+                '-g',
+                '!.godot',
               }
             end,
           },
@@ -84,7 +86,7 @@ return {
           },
         },
         defaults = {
-          file_ignore_patterns = { '.cargo' },
+          file_ignore_patterns = { '.cargo', '.godot' },
         },
       }
 
@@ -126,6 +128,8 @@ return {
             'coverage',
             '--exclude',
             '.cargo',
+            '--exclude',
+            '.godot',
           },
         })
       end, { desc = 'Search Files [CMD P]' })
