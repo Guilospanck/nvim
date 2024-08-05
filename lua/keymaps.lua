@@ -52,7 +52,6 @@ vim.keymap.set('v', '', function()
   -- send parsed substitution command to command line
   vim.api.nvim_input('<Esc>:%s/' .. pattern .. '//<Left>')
 end)
-
 -- Copy full absolute path of current file
 -- CMD SHIFT a
 vim.keymap.set({ 'n', 'v' }, '', ':let @+ = expand("%:p")<CR>', { silent = true })
@@ -60,7 +59,6 @@ vim.keymap.set({ 'n', 'v' }, '', ':let @+ = expand("%:p")<CR>', { silent = tr
 -- Makes current file executable (chmod +x)
 -- CMD SHIFT x
 vim.keymap.set({ 'n', 'v' }, '', '<cmd>!chmod +x %<CR>', { silent = true })
-
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 

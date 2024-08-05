@@ -76,6 +76,10 @@ return {
                 '!.cargo',
                 '-g',
                 '!.godot',
+                '-g',
+                '!assets',
+                '-g',
+                '!.next',
               }
             end,
           },
@@ -86,7 +90,7 @@ return {
           },
         },
         defaults = {
-          file_ignore_patterns = { '.cargo', '.godot' },
+          file_ignore_patterns = { '.cargo', '.godot', 'assets', '.next' },
         },
       }
 
@@ -130,6 +134,10 @@ return {
             '.cargo',
             '--exclude',
             '.godot',
+            '--exclude',
+            'assets',
+            '--exclude',
+            '.next',
           },
         })
       end, { desc = 'Search Files [CMD P]' })
