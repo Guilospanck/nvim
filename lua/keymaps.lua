@@ -53,7 +53,7 @@ vim.keymap.set('v', '', function()
   vim.api.nvim_input('<Esc>:%s/' .. pattern .. '//<Left>')
 end)
 -- Copy full absolute path of current file
--- CMD SHIFT a
+-- CMD SHIFT c
 vim.keymap.set({ 'n', 'v' }, '', ':let @+ = expand("%:p")<CR>', { silent = true })
 
 -- Makes current file executable (chmod +x)

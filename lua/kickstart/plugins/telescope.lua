@@ -80,6 +80,8 @@ return {
                 '!assets',
                 '-g',
                 '!.next',
+                '-g',
+                '!pnpm-lock.yaml',
               }
             end,
           },
@@ -90,7 +92,7 @@ return {
           },
         },
         defaults = {
-          file_ignore_patterns = { '.cargo', '.godot', 'assets', '.next' },
+          file_ignore_patterns = { '.cargo', '.godot', 'assets', '.next', 'pnpm-lock.yaml' },
         },
       }
 
@@ -138,6 +140,8 @@ return {
             'assets',
             '--exclude',
             '.next',
+            '--exclude',
+            'pnpm-lock.yaml',
           },
         })
       end, { desc = 'Search Files [CMD P]' })
