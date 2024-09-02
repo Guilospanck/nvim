@@ -82,6 +82,8 @@ return {
                 '!.next',
                 '-g',
                 '!pnpm-lock.yaml',
+                '-g',
+                '!allure-results',
               }
             end,
           },
@@ -142,6 +144,8 @@ return {
             '.next',
             '--exclude',
             'pnpm-lock.yaml',
+            '--exclude',
+            'allure-results',
           },
         })
       end, { desc = 'Search Files [CMD P]' })
