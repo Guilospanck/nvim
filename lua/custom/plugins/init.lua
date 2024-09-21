@@ -5,37 +5,37 @@
 return {
   -- Harpoon lets you fly through previous marked items.
   -- From https://github.com/ThePrimeagen/harpoon/tree/harpoon2
-  {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local harpoon = require 'harpoon'
-      harpoon:setup()
-      local list = harpoon:list()
+  -- {
+  --   'ThePrimeagen/harpoon',
+  --   branch = 'harpoon2',
+  --   dependencies = { 'nvim-lua/plenary.nvim' },
+  --   config = function()
+  --     local harpoon = require 'harpoon'
+  --     harpoon:setup()
+  --     local list = harpoon:list()
 
-      -- CMD SHIFT M
-      vim.keymap.set('n', '', function()
-        local abs_path = vim.fn.expand '%:p'
-        list:add { value = abs_path }
-      end, { desc = 'Add to harpoon window' })
+  --     -- CMD SHIFT M
+  --     vim.keymap.set('n', '', function()
+  --       local abs_path = vim.fn.expand '%:p'
+  --       list:add { value = abs_path }
+  --     end, { desc = 'Add to harpoon window' })
 
-      -- CMD SHIFT E
-      vim.keymap.set('n', '', function()
-        harpoon.ui:toggle_quick_menu(list)
-      end, { desc = 'Open harpoon window' })
+  --     -- CMD SHIFT E
+  --     vim.keymap.set('n', '', function()
+  --       harpoon.ui:toggle_quick_menu(list)
+  --     end, { desc = 'Open harpoon window' })
 
-      -- Toggle previous & next buffers stored within Harpoon list
-      -- CMD SHIFT P
-      vim.keymap.set('n', '', function()
-        list:prev()
-      end, { desc = 'Previous harpoon item' })
-      -- CMD SHIFT N
-      vim.keymap.set('n', '', function()
-        list:next()
-      end, { desc = 'Next harpoon item' })
-    end,
-  },
+  --     -- Toggle previous & next buffers stored within Harpoon list
+  --     -- CMD SHIFT P
+  --     vim.keymap.set('n', '', function()
+  --       list:prev()
+  --     end, { desc = 'Previous harpoon item' })
+  --     -- CMD SHIFT N
+  --     vim.keymap.set('n', '', function()
+  --       list:next()
+  --     end, { desc = 'Next harpoon item' })
+  --   end,
+  -- },
   -- Theme for neovim
   {
     'rose-pine/neovim',
@@ -44,8 +44,8 @@ return {
       local function colorMyPencils(color)
         color = color or 'rose-pine-moon'
         vim.cmd.colorscheme(color)
-        -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-        -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+        vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+        vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
       end
 
       -- Check https://github.com/rose-pine/neovim/blob/main/lua/rose-pine.lua for more info

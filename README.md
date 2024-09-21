@@ -22,3 +22,18 @@ A non-exhaustive list of plugins used:
 
 For more info check the `lua/lazy-plugins.lua` and `lua/custom/plugins/init.lua` for the whole list.
 
+> [!INFO]  
+> To have transparent background you need to:
+> - Go to `./lua/custom/plugins/init.lua` and enable the `bg = 'none'` for your theme. Example:
+> ```
+>        vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+>        vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+>
+> ```
+> - Be sure to also enable the transparent background for your terminal. In alacritty you do it by:
+> a) 
+> ```
+>    vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+>    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+> ```
+> b) also change the `opacity` (!important) 
