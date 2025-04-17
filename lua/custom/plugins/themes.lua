@@ -48,10 +48,21 @@ return {
   --   end,
   -- },
 
-  -- TOMORROW NIGHT
+  --  CATPUCCIN
   {
-    'deparr/tairiki.nvim',
-    lazy = false,
-    priority = 1000, -- recommended if you use tairiki as your default theme
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    config = function()
+      local function colorMyPencils(color)
+        color = color or 'catppuccin-mocha'
+        vim.cmd.colorscheme(color)
+        vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+        vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      end
+
+      -- Possible values for color = catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
+      colorMyPencils()
+    end,
   },
 }

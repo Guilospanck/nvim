@@ -52,8 +52,6 @@ require('lazy').setup({
 
   require 'kickstart/plugins/cmp',
 
-  require 'custom.plugins.themes',
-
   require 'kickstart/plugins/todo-comments',
 
   require 'kickstart/plugins/mini',
