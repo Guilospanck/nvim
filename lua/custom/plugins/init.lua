@@ -57,4 +57,10 @@ return {
   {
     'tpope/vim-abolish',
   },
+  -- rust
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^6',
+    lazy = false,
+  },
 }

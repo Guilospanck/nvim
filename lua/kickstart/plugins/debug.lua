@@ -18,12 +18,6 @@ return {
 
     -- go
     'leoluz/nvim-dap-go',
-    -- rust
-    {
-      'mrcjkb/rustaceanvim',
-      version = '^4',
-      lazy = false,
-    },
     -- python
     'mfussenegger/nvim-dap-python',
   },
