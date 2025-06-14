@@ -181,7 +181,7 @@ return {
       -- Check: https://www.reddit.com/r/neovim/comments/1c2bhcs/godotgdscript_in_neovim_with_lsp_and_debugging_in/
       require('lspconfig')['gdscript'].setup {
         name = 'godot',
-        cmd = vim.lsp.rpc.connect('127.0.0.1', '6005'),
+        cmd = vim.lsp.rpc.connect('127.0.0.1', 6005),
       }
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
