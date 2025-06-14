@@ -86,6 +86,10 @@ return {
                 '!allure-results',
                 '-g',
                 '!build',
+                '-g',
+                '!server.pipe',
+                '-g',
+                '\\.uid$',
               }
             end,
           },
@@ -96,7 +100,7 @@ return {
           },
         },
         defaults = {
-          file_ignore_patterns = { '.cargo', '.godot', 'assets', '.next', 'pnpm-lock.yaml' },
+          file_ignore_patterns = { '.cargo', '.godot', 'assets', '.next', 'pnpm-lock.yaml', 'server.pipe', '\\.uid$' },
         },
       }
 
