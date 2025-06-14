@@ -173,8 +173,12 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      -- -- Godot
-      -- -- INFO: it needs to be here because 'mason' does not have it
+      -- Godot
+      -- INFO: it needs to be here because 'mason' does not have it
+      -- You also have to initialise nvim with:
+      -- `nvim --listen /tmp/godot.pipe`, where "/tmp/godot.pipe"
+      -- is the execution parameter you added to the Godot Editor
+      -- Check: https://www.reddit.com/r/neovim/comments/1c2bhcs/godotgdscript_in_neovim_with_lsp_and_debugging_in/
       require('lspconfig')['gdscript'].setup {
         name = 'godot',
         cmd = vim.lsp.rpc.connect('127.0.0.1', '6005'),
