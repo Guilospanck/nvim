@@ -173,6 +173,10 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
+      -- -- Godot
+      -- -- INFO: it needs to be here because 'mason' does not have it
+      -- require('lspconfig').gdscript.setup(capabilities)
+
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -213,9 +217,6 @@ return {
               },
             },
           },
-
-          -- Godot
-          gdscript = {},
         },
         -- Ensure the servers and tools above are installed
         --  To check the current status of installed tools and/or manually install
