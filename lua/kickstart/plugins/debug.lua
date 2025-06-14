@@ -120,8 +120,8 @@ return {
     ---------------------------------------------------------------------------
     --
     -- Gets the right python from Poetry env (may have to change based on the project)
-    local python_poetry_path = vim.system({ 'poetry', 'env', 'info', '--executable' }, { text = true }):wait()
-    require('dap-python').setup(python_poetry_path.stdout)
-    require('dap-python').test_runner = 'pytest'
+    -- local python_poetry_path = vim.system({ 'poetry', 'env', 'info', '--executable' }, { text = true }):wait()
+    -- require('dap-python').setup(python_poetry_path.stdout)
+    -- require('dap-python').test_runner = 'pytest'
   end,
 }
