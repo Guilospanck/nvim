@@ -40,6 +40,23 @@ return {
       },
     }
 
+    -- godot and gdscript
+    -- This info exists in the settings > Network > Debug adapters
+    dap.adapters.godot = {
+      type = 'server',
+      host = '127.0.0.1',
+      port = 6006,
+    }
+    dap.configurations.gdscript = {
+      {
+        type = 'godot',
+        request = 'launch',
+        name = 'Launch scene',
+        project = '${workspaceFolder}',
+        launch_scene = true,
+      },
+    }
+
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F3>', dap.step_over, { desc = 'Debug: Step Over' })
     vim.keymap.set('n', '<F4>', dap.terminate, { desc = 'Debug: Stop' })

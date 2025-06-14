@@ -175,8 +175,10 @@ return {
 
       -- -- Godot
       -- -- INFO: it needs to be here because 'mason' does not have it
-      require('lspconfig').gdscript.setup(capabilities)
-
+      require('lspconfig')['gdscript'].setup {
+        name = 'godot',
+        cmd = vim.lsp.rpc.connect('127.0.0.1', '6005'),
+      }
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
