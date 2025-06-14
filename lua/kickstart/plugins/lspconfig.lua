@@ -175,7 +175,7 @@ return {
 
       -- -- Godot
       -- -- INFO: it needs to be here because 'mason' does not have it
-      -- require('lspconfig').gdscript.setup(capabilities)
+      require('lspconfig').gdscript.setup(capabilities)
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
