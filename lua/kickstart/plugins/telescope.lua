@@ -88,7 +88,7 @@ return {
                 '-g',
                 '!server.pipe',
                 '-g',
-                '\\.uid$',
+                '!.uid',
               }
             end,
           },
@@ -99,7 +99,7 @@ return {
           },
         },
         defaults = {
-          file_ignore_patterns = { '.cargo', '.godot', 'assets', '.next', 'pnpm-lock.yaml', 'server.pipe', '\\.uid$' },
+          file_ignore_patterns = { '.cargo', '.godot', 'assets', '.next', 'pnpm-lock.yaml', 'server.pipe', '.uid' },
         },
       }
 
