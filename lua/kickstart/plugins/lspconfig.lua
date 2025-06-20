@@ -3,7 +3,15 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
+      {
+        'mason-org/mason.nvim',
+        opts = {
+          registries = {
+            'github:mason-org/mason-registry',
+            'github:Crashdummyy/mason-registry',
+          },
+        },
+      },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -14,6 +22,17 @@ return {
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
       { 'folke/neodev.nvim', opts = {} },
+
+      -- C#
+      {
+        'seblyng/roslyn.nvim',
+        ft = 'cs',
+        ---@module 'roslyn.config'
+        ---@type RoslynNvimConfig
+        opts = {
+          -- your configuration comes here; leave empty for default settings
+        },
+      },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -185,22 +204,6 @@ return {
         name = 'godot',
         cmd = vim.lsp.rpc.connect('127.0.0.1', 6005),
       }
-      -- C#
-      require('lspconfig')['omnisharp'].setup {
-        cmd = {
-          'omnisharp',
-          '--languageserver',
-          '--hostPID',
-          tostring(vim.fn.getpid()),
-        },
-        enable_editorconfig_support = true,
-        enable_ms_build_load_projects_on_demand = false,
-        enable_roslyn_analyzers = true,
-        organize_imports_on_format = true,
-        enable_import_completion = true,
-        sdk_include_prereleases = true,
-        analyze_open_documents_only = true,
-      }
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -256,7 +259,8 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'omnisharp',
+        'csharpier',
+        'netcoredbg',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

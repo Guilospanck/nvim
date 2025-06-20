@@ -38,6 +38,13 @@ return {
         html = { 'prettier' },
         json = { 'prettier' },
         yaml = { 'prettier' },
+        cs = { 'csharpier' },
+      },
+      formatters = {
+        csharpier = {
+          command = 'dotnet-csharpier',
+          args = { '--write-stdout' },
+        },
       },
     },
   },
