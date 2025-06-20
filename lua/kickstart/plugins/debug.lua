@@ -41,7 +41,7 @@ return {
     }
 
     -- godot and gdscript
-    -- This info exists in the settings > Network > Debug adapters
+    -- This info exists in the Editor settings > Network > Debug adapters
     dap.adapters.godot = {
       type = 'server',
       host = '127.0.0.1',

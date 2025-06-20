@@ -179,10 +179,26 @@ return {
       -- `nvim --listen /tmp/godot.pipe`, where "/tmp/godot.pipe"
       -- is the execution parameter you added to the Godot Editor
       -- Check: https://www.reddit.com/r/neovim/comments/1c2bhcs/godotgdscript_in_neovim_with_lsp_and_debugging_in/
+      --
+      -- GDScript
       require('lspconfig')['gdscript'].setup {
         name = 'godot',
         cmd = vim.lsp.rpc.connect('127.0.0.1', 6005),
       }
+      -- C#
+      require('lspconfig')['omnisharp'].setup {
+        cmd = { 'omnisharp', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
+        capabilities = capabilities,
+
+        enable_editorconfig_support = true,
+        enable_ms_build_load_projects_on_demand = false,
+        enable_roslyn_analyzers = true,
+        organize_imports_on_format = true,
+        enable_import_completion = true,
+        sdk_include_prereleases = true,
+        analyze_open_documents_only = true,
+      }
+
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -237,6 +253,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'omnisharp',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
