@@ -89,6 +89,8 @@ return {
                 '!server.pipe',
                 '-g',
                 '!.uid',
+                '-g',
+                '!venv',
               }
             end,
           },
@@ -153,6 +155,8 @@ return {
             'allure-results',
             '--exclude',
             'build',
+            '--exclude',
+            'venv',
           },
         })
       end, { desc = 'Search Files [CMD P]' })
