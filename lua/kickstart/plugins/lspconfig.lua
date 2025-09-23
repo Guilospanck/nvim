@@ -200,10 +200,11 @@ return {
       -- Check: https://www.reddit.com/r/neovim/comments/1c2bhcs/godotgdscript_in_neovim_with_lsp_and_debugging_in/
       --
       -- GDScript
-      require('lspconfig')['gdscript'].setup {
+      vim.lsp.config('gdscript', {
         name = 'godot',
         cmd = vim.lsp.rpc.connect('127.0.0.1', 6005),
-      }
+      })
+      vim.lsp.enable { 'gdscript' }
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -272,7 +273,8 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.config(server_name, server)
+            vim.lsp.enable { server_name }
           end,
         },
       }
