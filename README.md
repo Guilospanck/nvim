@@ -14,11 +14,10 @@ This is my nvim configuration.
 
 A non-exhaustive list of plugins used:
 
-- Harpoon
 - UndoTree
 - Telescope
 - Treesitter
-- Theme: rose-pine
+- Theme: it changes, but in the screenshots it's rose-pine.
 
 For more info check the `lua/lazy-plugins.lua` and `lua/custom/plugins/init.lua` for the whole list.
 
