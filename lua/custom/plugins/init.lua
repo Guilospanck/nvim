@@ -1,8 +1,6 @@
 -- You can add your own plugins here or in other files in this directory!
 --  I promise not to create any merge conflicts in this directory :)
---
--- See the kickstart.nvim README for more information
-return {
+local base = {
   -- Harpoon lets you fly through previous marked items.
   -- From https://github.com/ThePrimeagen/harpoon/tree/harpoon2
   -- {
@@ -64,3 +62,34 @@ return {
     lazy = false,
   },
 }
+
+-- Gets current Omarchy theme
+local theme = dofile(vim.fn.expand '~/.config/omarchy/current/theme/neovim.lua')
+
+local function is_lazyvim(entry)
+  return type(entry) == 'table' and entry[1] == 'LazyVim/LazyVim'
+end
+
+local theme_plugins = {}
+
+if type(theme) == 'table' then
+  -- check if it's a list (array part)
+  if theme[1] ~= nil then
+    -- iterate over each element in the list
+    for _, spec in ipairs(theme) do
+      if not is_lazyvim(spec) then
+        table.insert(theme_plugins, spec)
+      end
+    end
+  else
+    -- it's a single table plugin spec (not an array)
+    if not is_lazyvim(theme) then
+      table.insert(theme_plugins, theme)
+    end
+  end
+end
+
+vim.list_extend(base, theme_plugins)
+
+-- See the kickstart.nvim README for more information
+return base
