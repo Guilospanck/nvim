@@ -63,8 +63,15 @@ local base = {
   },
 }
 
--- Gets current Omarchy theme
-local theme = dofile(vim.fn.expand '~/.config/omarchy/current/theme/neovim.lua')
+local theme = {}
+
+local omarchy_current_theme_path = vim.fn.expand '~/.config/omarchy/current/theme/neovim.lua'
+if vim.loop.fs_stat(omarchy_current_theme_path) then
+  -- Gets current Omarchy theme
+  theme = dofile(omarchy_current_theme_path)
+else
+  theme = {}
+end
 
 local function is_lazyvim(entry)
   return type(entry) == 'table' and entry[1] == 'LazyVim/LazyVim'
@@ -72,17 +79,14 @@ end
 
 local theme_plugins = {}
 
-if type(theme) == 'table' then
-  -- check if it's a list (array part)
+if type(theme) == 'table' and next(theme) ~= nil then
   if theme[1] ~= nil then
-    -- iterate over each element in the list
     for _, spec in ipairs(theme) do
       if not is_lazyvim(spec) then
         table.insert(theme_plugins, spec)
       end
     end
   else
-    -- it's a single table plugin spec (not an array)
     if not is_lazyvim(theme) then
       table.insert(theme_plugins, theme)
     end
