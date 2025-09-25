@@ -5,9 +5,6 @@ This is my nvim configuration.
 > [!NOTE]  
 > There's a `omarchy` branch that is supposed to be used with `Omarchy` (due to themes and whatnot). Other than that, just use code from `master`.
 
-> [!NOTE]  
-> Most of the commands shortcuts here uses keybinds for macOS that were defined using Alacritty terminal. Check the [dotfiles](https://github.com/Guilospanck/dotfiles) for more.
-
 ## How it looks
 
 ![alt text](img/nvim.png)
