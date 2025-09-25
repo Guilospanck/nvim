@@ -63,14 +63,14 @@ local base = {
   },
 }
 
+-- ##################################### THEME related ##########################################
+
 local theme = {}
 
 local omarchy_current_theme_path = vim.fn.expand '~/.config/omarchy/current/theme/neovim.lua'
 if vim.loop.fs_stat(omarchy_current_theme_path) then
   -- Gets current Omarchy theme
   theme = dofile(omarchy_current_theme_path)
-else
-  theme = {}
 end
 
 local function is_lazyvim(entry)
@@ -93,7 +93,82 @@ if type(theme) == 'table' and next(theme) ~= nil then
   end
 end
 
+-- If at this point the theme_plugins is still nil,
+-- we try to get it either from Omarchy "THEME_NAME" env
+-- or, if in another OS, default to catppuccin
+if next(theme_plugins) == nil then
+  -- NOTE: for this to work, we had to change Omarchy
+  -- `omarchy-theme-set` and add
+  -- `echo "$THEME_NAME" > "$CURRENT_THEME_DIR/theme_name"`
+  local f = io.open(os.getenv 'HOME' .. '/.config/omarchy/current/theme/theme_name', 'r')
+  local theme_name = f and f:read '*l' or 'catppuccin'
+  if f then
+    f:close()
+  end
+
+  if theme_name == 'tokyo-night' then
+    theme_plugins = {
+      {
+        'folke/tokyonight.nvim',
+        priority = 1000,
+        init = function()
+          vim.cmd.colorscheme 'tokyonight-storm'
+          vim.cmd.hi 'Comment gui=none'
+        end,
+      },
+    }
+  elseif theme_name == 'rose-pine' then
+    theme_plugins = {
+      {
+        'rose-pine/neovim',
+        as = 'rose-pine',
+        config = function()
+          local function colorMyPencils(color)
+            color = color or 'rose-pine-moon'
+            vim.cmd.colorscheme(color)
+            vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+            vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+          end
+
+          require('rose-pine').setup {
+            disable_background = true,
+            highlight_groups = {
+              MiniStatuslineDevinfo = { fg = 'iris', bg = 'overlay' },
+              MiniStatuslineFilename = { fg = 'gold', bg = 'surface' },
+              LspReferenceRead = { bg = '#000000' },
+              LspReferenceText = { bg = '#000000' },
+              LspReferenceWrite = { bg = '#000000' },
+              CursorLine = { bg = '#100E1B' },
+            },
+          }
+
+          colorMyPencils()
+        end,
+      },
+    }
+  else -- default to catppuccin
+    theme_plugins = {
+      {
+        'catppuccin/nvim',
+        name = 'catppuccin',
+        priority = 1000,
+        config = function()
+          local function colorMyPencils(color)
+            color = color or 'catppuccin-mocha'
+            vim.cmd.colorscheme(color)
+            vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+            vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+          end
+
+          colorMyPencils()
+        end,
+      },
+    }
+  end
+end
+
 vim.list_extend(base, theme_plugins)
 
--- See the kickstart.nvim README for more information
+-- ##################################### THEME related ##########################################
+
 return base
