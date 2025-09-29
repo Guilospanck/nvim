@@ -91,6 +91,8 @@ return {
                 '!.uid',
                 '-g',
                 '!venv',
+                '-g',
+                '!dist',
               }
             end,
           },
@@ -157,6 +159,8 @@ return {
             'build',
             '--exclude',
             'venv',
+            '--exclude',
+            'dist',
           },
         })
       end, { desc = 'Search Files [CMD P]' })
